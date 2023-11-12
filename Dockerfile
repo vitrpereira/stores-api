@@ -1,7 +1,7 @@
 FROM python:3.11
-EXPOSE 5000
+# EXPOSE 5000
 WORKDIR /app
 COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip install --no-cahce-dir -r requirements.txt
 COPY . .
-CMD ["flask", "run", "--host", "0.0.0.0"]
+CMD ["gunicorn", "--bind", "0.0.0.0:80", "app:create_app()"]
