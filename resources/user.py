@@ -7,9 +7,18 @@ from db import db
 from models import UserModel 
 from schemas import UserSchema
 from blocklist import BLOCKLIST
+##########################################################################
+import redis
+from rq import Queue
+from tasks import send_user_registration_email
+import os
 
 blp = Blueprint("Users", "users", description="Operations on users")
 
+connection = redis.from_url(
+    os.getenv("REDIS_URL")
+)  # Get this from Render.com or run in Docker
+queue = Queue("emails", connection=connection)
 
 @blp.route("/register")
 class UserRegister(MethodView):
