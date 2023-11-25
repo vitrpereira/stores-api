@@ -1,3 +1,3 @@
 # STORES API
 
-Just staring out!
+Just starting out!
